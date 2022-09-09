@@ -1,10 +1,10 @@
-import imp
+
 from django.db import models
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager 
 
+from django.contrib.auth.models import AbstractBaseUser   , BaseUserManager 
+ 
 
-class userManager(BaseUserManager):
+class myUserManager(BaseUserManager):
     def create_user(self, name, email, password = None):
         if not name:
             raise ValueError("Please Enter Name")
@@ -26,6 +26,7 @@ class userManager(BaseUserManager):
               password= password
             )
         user.is_admin = True
+        user.is_staff = True
         user.is_superuser = True
         user.save(using  = self._db)
         return user
@@ -33,7 +34,7 @@ class userManager(BaseUserManager):
 
 
 # Create your models here.
-class User(AbstractBaseUser):
+class myUser(AbstractBaseUser):
 
     name = models.CharField(max_length=50, verbose_name=" User Name: ")
     email = models.EmailField(max_length=50,unique=True, verbose_name="E-mail Address :")
@@ -44,13 +45,13 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['name']
-    objects  = userManager()
+    objects  = myUserManager()
     def __str__(self):
         return self.email
     
     def has_perm(self, perm, obj = None):
-        return True
+        return self.is_admin
 
     def has_module_perms(self, app_label):
         return True
-    
+      

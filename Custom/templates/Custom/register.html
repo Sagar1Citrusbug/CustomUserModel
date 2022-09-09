@@ -1,0 +1,32 @@
+{% extends 'Custom/base.html' %}
+
+{% block title %}
+ Register
+{% endblock title %}
+
+{% block content %}
+<div class  = "container">
+<h2 class = "con-item"> Register Here</h2>
+<form method = 'POST' class = "con-item">
+    {% csrf_token %}
+
+    {{form.as_div}}
+</div>
+   {% comment %} {% for field  in form %}
+        {{field.label_tag}}
+        {{field.}}
+       {%if field.help_text %}
+       {{field.help_text}}
+   {% endif%}  {% endcomment %}     
+       {% comment %} 
+   {% for error in field.errors  %}
+       
+    
+    {{error}}
+   
+   {% endfor %}
+   {% endfor %}     {%endcomment %}
+<input type = submit  value = "Register">
+</form>
+
+{% endblock content %}
