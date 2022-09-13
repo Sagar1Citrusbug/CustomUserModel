@@ -1,19 +1,21 @@
 {% extends 'Custom/base.html' %}
 
 {% block title %}
- change password
+ Reset password
 {% endblock title %}
 
 {% block content %}
 
 <div class  = "container">
-    <h2>Change password </h2>
+    <h2>Reset password </h2>
 <form method = 'POST' class = "con-item">
     {% csrf_token %}
 
+
+
     {{form.as_div}}
 
-    <input type = submit  value = "Log IN">
+    <input type = submit  value = "Reset">
 </form>
 
 {% endblock content %}
